@@ -49,15 +49,15 @@ Here are some ideas to get you started:
 ## Operating Systems I Have Used
 I am currently using Endeavour OS which is based on Arch Linux, however I have used the following Distributions before:
 
-![Windows](https://img.shields.io/badge/-Windows-0078D6?style=for-the-badge&logo=Linux%20Mint&logoColor=white)
-![Kali Linux](https://img.shields.io/badge/-Kali_Linux-557C94?style=for-the-badge&logo=Linux%20Mint&logoColor=white)
-![Ubuntu](https://img.shields.io/badge/-Ubuntu-E95420?style=for-the-badge&logo=Linux%20Mint&logoColor=white)
-![Fedora](https://img.shields.io/badge/-Fedora-294172?style=for-the-badge&logo=Linux%20Mint&logoColor=white)
-![Arch Linux](https://img.shields.io/badge/-Arch_Linux-1793D1?style=for-the-badge&logo=Linux%20Mint&logoColor=white)
+![Windows](https://img.shields.io/badge/-Windows-0078D6?style=for-the-badge&logo=Windows&logoColor=white)
+![Kali Linux](https://img.shields.io/badge/-Kali_Linux-557C94?style=for-the-badge&logo=Kali%20Linux&logoColor=white)
+![Ubuntu](https://img.shields.io/badge/-Ubuntu-E95420?style=for-the-badge&logo=Ubuntu&logoColor=white)
+![Fedora](https://img.shields.io/badge/-Fedora-294172?style=for-the-badge&logo=Fedora&logoColor=white)
+![Arch Linux](https://img.shields.io/badge/-Arch_Linux-1793D1?style=for-the-badge&logo=arch-linux&logoColor=white)
 ![Linux Mint](https://img.shields.io/badge/-Linux_Mint-87CF3E?style=for-the-badge&logo=Linux%20Mint&logoColor=white)
-![Pop!_OS](https://img.shields.io/badge/-Pop!__OS-48B9C7?style=for-the-badge&logo=Linux%20Mint&logoColor=white)
-![EndeavourOS](https://img.shields.io/badge/-EndeavourOS-4E4E4E?style=for-the-badge&logo=Linux%20Mint&logoColor=white)
-![Manjaro](https://img.shields.io/badge/-Manjaro-35BF5C?style=for-the-badge&logo=Linux%20Mint&logoColor=white)
+![Pop!_OS](https://img.shields.io/badge/-Pop!__OS-48B9C7?style=for-the-badge&logo=PopOS&logoColor=white)
+![EndeavourOS](https://img.shields.io/badge/-EndeavourOS-4E4E4E?style=for-the-badge&logo=EndeavourOS&logoColor=white)
+![Manjaro](https://img.shields.io/badge/-Manjaro-35BF5C?style=for-the-badge&logo=Manjaro&logoColor=white)
 ![Parrot OS](https://img.shields.io/badge/-Parrot_OS-1BBC9B?style=for-the-badge&logo=Linux%20Mint&logoColor=white)
 ![Debian](https://img.shields.io/badge/Debian-D70A53?style=for-the-badge&logo=debian&logoColor=white)
 ![Linux Mint](https://img.shields.io/badge/Linux%20Mint-87CF3E?style=for-the-badge&logo=Linux%20Mint&logoColor=white)
