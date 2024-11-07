@@ -49,9 +49,17 @@ Here are some ideas to get you started:
 ## Operating Systems I Have Used
 I am currently using Endeavour OS which is based on Arch Linux, however I have used the following Distributions before:
 
+![Windows](https://img.shields.io/badge/-Windows-0078D6?style=flat&logo=windows&logoColor=white)
+![Kali Linux](https://img.shields.io/badge/-Kali_Linux-557C94?style=flat&logo=kalilinux&logoColor=white)
+![Ubuntu](https://img.shields.io/badge/-Ubuntu-E95420?style=flat&logo=ubuntu&logoColor=white)
+![Fedora](https://img.shields.io/badge/-Fedora-294172?style=flat&logo=fedora&logoColor=white)
+![Arch Linux](https://img.shields.io/badge/-Arch_Linux-1793D1?style=flat&logo=arch-linux&logoColor=white)
+![Linux Mint](https://img.shields.io/badge/-Linux_Mint-87CF3E?style=flat&logo=linux-mint&logoColor=black)
+![Pop!_OS](https://img.shields.io/badge/-Pop!__OS-48B9C7?style=flat&logo=popos&logoColor=white)
+![EndeavourOS](https://img.shields.io/badge/-EndeavourOS-4E4E4E?style=flat&logo=endeavour&logoColor=white)
+![Manjaro](https://img.shields.io/badge/-Manjaro-35BF5C?style=flat&logo=manjaro&logoColor=white)
+![Parrot OS](https://img.shields.io/badge/-Parrot_OS-1BBC9B?style=flat&logo=parrotos&logoColor=black)
 ![Debian](https://img.shields.io/badge/Debian-D70A53?style=for-the-badge&logo=debian&logoColor=white)
 ![Linux Mint](https://img.shields.io/badge/Linux%20Mint-87CF3E?style=for-the-badge&logo=Linux%20Mint&logoColor=white)
 ![Arch](https://img.shields.io/badge/Arch%20Linux-1793D1?logo=arch-linux&logoColor=fff&style=for-the-badge)
-![Manjaro](https://img.shields.io/badge/Manjaro-35BF5C?style=for-the-badge&logo=Manjaro&logoColor=white)
-![Fedora](https://img.shields.io/badge/Fedora-294172?style=for-the-badge&logo=fedora&logoColor=white)
 <!--[![macOS](https://img.shields.io/badge/macOS-000000?style=for-the-badge&logo=apple&logoColor=F0F0F0)](#)-->
