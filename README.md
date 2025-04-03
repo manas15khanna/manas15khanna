@@ -23,6 +23,8 @@ Here are some ideas to get you started:
 <!--<img align="left" width="49%" height="40%" src="https://github-readme-stats.vercel.app/api?username=manas15khanna&show_icons=true&theme=tokyonight&hide_border=true"/> -->
 <img align="center" width="46%" height="40%" src="https://github-readme-stats.vercel.app/api/top-langs/?username=manas15khanna&theme=tokyonight&hide_border=true&include_all_commits=true&count_private=false&layout=compact&hide_border=true"/>
 
+[![trophy](https://github-profile-trophy.vercel.app/?username=manas15khanna)](https://github.com/ryo-ma/github-profile-trophy)
+
 ## Tools I use
 ![Brave](https://img.shields.io/badge/Brave-FB542B?style=for-the-badge&logo=Brave&logoColor=white)
 ![Firefox](https://img.shields.io/badge/Firefox-FB542B?style=for-the-badge&logo=Firefox&logoColor=white)
