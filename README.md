@@ -19,11 +19,13 @@ Here are some ideas to get you started:
 - 📫 Reach me at: manas15khanna@gmail.com
 <!-- 🔗 You can check out my [website](https://sohamch08.github.io/) -->
 
+## Github Stats
 
-<!--<img align="left" width="49%" height="40%" src="https://github-readme-stats.vercel.app/api?username=manas15khanna&show_icons=true&theme=tokyonight&hide_border=true"/> -->
-<img align="center" width="46%" height="40%" src="https://github-readme-stats.vercel.app/api/top-langs/?username=manas15khanna&theme=tokyonight&hide_border=true&include_all_commits=true&count_private=false&layout=compact&hide_border=true"/>
+<img align="left" width="49%" height="40%" src="https://github-readme-stats.vercel.app/api?username=manas15khanna&show_icons=true&theme=tokyonight&hide_border=true"/>
+<img align="left" width="46%" height="40%" src="https://github-readme-stats.vercel.app/api/top-langs/?username=manas15khanna&theme=tokyonight&hide_border=true&include_all_commits=true&count_private=false&layout=compact&hide_border=true"/>
 
-[![trophy](https://github-profile-trophy.vercel.app/?username=manas15khanna&theme=darkhub)](https://github.com/ryo-ma/github-profile-trophy)
+## Github Trophies
+[![trophy](https://github-profile-trophy.vercel.app/?username=manas15khanna&theme=tokyonight)](https://github.com/ryo-ma/github-profile-trophy)
 
 ## Tools I use
 ![Brave](https://img.shields.io/badge/Brave-FB542B?style=for-the-badge&logo=Brave&logoColor=white)
@@ -41,6 +43,8 @@ Here are some ideas to get you started:
 ![CSS5](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 [![C](https://img.shields.io/badge/C-00599C?style=for-the-badge&logo=c&logoColor=white)](#)
 [![C++](https://img.shields.io/badge/C++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white)](#)
+![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
+
 <!--
 ![Markdown](https://img.shields.io/badge/markdown-%23000000.svg?style=for-the-badge&logo=markdown&logoColor=white)
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
@@ -49,7 +53,7 @@ Here are some ideas to get you started:
 -->
 
 ## Operating Systems I Have Used
-I am currently using Endeavour OS which is based on Arch Linux, however I have used the following Distributions before:
+Using Arch Linux with a ML4W Hyprland setup on a HP Elitebook 840 G3
 
 ![Arch Linux](https://img.shields.io/badge/-Arch_Linux-1793D1?style=for-the-badge&logo=arch-linux&logoColor=white)
 ![EndeavourOS](https://img.shields.io/badge/-EndeavourOS-4E4E4E?style=for-the-badge&logo=EndeavourOS&logoColor=white)
