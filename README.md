@@ -26,11 +26,7 @@ Here are some ideas to get you started:
 
 ## Github Commits
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="github-snake-dark.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="github-snake.svg" />
-  <img alt="github-snake" src="github-snake.svg" />
-</picture>
+<img src="https://github.com/manas15khanna/manas15khanna/blob/output/github-snake-dark.svg" width="1200px">
 
 _generated with [Platane/snk](https://github.com/Platane/snk)_
 
