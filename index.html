@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MANAS KHANNA</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <!-- Lenis Smooth Scroll -->
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+  <style>
+    /* ─── RESET & BASE ─────────────────────────────────────────────── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --black:    #000000;
+      --offwhite: #F5F5F5;
+      --dim:      #8a8a8a;
+      --dimmer:   #3a3a3a;
+      --accent:   #c8a96e;
+      --border:   rgba(245,245,245,0.08);
+      --border-s: rgba(245,245,245,0.15);
+      --serif:    'EB Garamond', Georgia, serif;
+      --sans:     'Inter', sans-serif;
+      --mono:     'JetBrains Mono', monospace;
+    }
+
+    html { font-size: 22px; scroll-behavior: auto; }
+
+    body {
+      background: var(--black);
+      color: var(--offwhite);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.6;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ─── CUSTOM CURSOR ────────────────────────────────────────────── */
+    .cursor {
+      position: fixed;
+      width: 8px; height: 8px;
+      background: var(--offwhite);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10000;
+      mix-blend-mode: difference;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease, width 0.25s ease, height 0.25s ease;
+    }
+    .cursor-ring {
+      position: fixed;
+      width: 36px; height: 36px;
+      border: 0.5px solid rgba(245,245,245,0.5);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.35s ease, width 0.25s ease, height 0.25s ease, border-color 0.25s;
+    }
+    body:has(a:hover) .cursor-ring,
+    body:has(button:hover) .cursor-ring { width: 56px; height: 56px; border-color: var(--accent); }
+
+    /* ─── FILM GRAIN OVERLAY ───────────────────────────────────────── */
+    .grain {
+      position: fixed;
+      inset: -50%;
+      width: 200%; height: 200%;
+      pointer-events: none;
+      z-index: 9000;
+      opacity: 0.04;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      animation: grain-anim 0.15s steps(1) infinite;
+    }
+    @keyframes grain-anim {
+      0%   { transform: translate(0, 0); }
+      10%  { transform: translate(-2%, -3%); }
+      20%  { transform: translate(3%, 2%); }
+      30%  { transform: translate(-1%, 4%); }
+      40%  { transform: translate(4%, -1%); }
+      50%  { transform: translate(-3%, 3%); }
+      60%  { transform: translate(2%, -4%); }
+      70%  { transform: translate(-4%, 1%); }
+      80%  { transform: translate(1%, -2%); }
+      90%  { transform: translate(-2%, 4%); }
+      100% { transform: translate(3%, -3%); }
+    }
+
+    /* ─── SCANLINES ────────────────────────────────────────────────── */
+    .scanlines {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 8999;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 2px,
+        rgba(0,0,0,0.08) 2px,
+        rgba(0,0,0,0.08) 4px
+      );
+    }
+
+    /* ─── GLOBAL LAYOUT ────────────────────────────────────────────── */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 4rem;
+    }
+
+    section {
+      padding: 8rem 0;
+      border-bottom: 0.5px solid var(--border);
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.625rem;
+      font-weight: 300;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 4rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 0.5px;
+      background: var(--dimmer);
+    }
+
+    /* ─── NAV ──────────────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 2rem 4rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      mix-blend-mode: normal;
+    }
+    nav::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 4rem; right: 4rem;
+      height: 0.5px;
+      background: var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      color: var(--offwhite);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 0.625rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dim);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .nav-links a:hover { color: var(--offwhite); }
+
+    /* ─── HERO ─────────────────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding-bottom: 8rem;
+      padding-top: 0;
+      border-bottom: 0.5px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--serif);
+      font-size: clamp(6rem, 18vw, 22rem);
+      font-weight: 400;
+      color: transparent;
+      -webkit-text-stroke: 0.5px rgba(245,245,245,0.04);
+      white-space: nowrap;
+      pointer-events: none;
+      user-select: none;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(3.5rem, 8vw, 9rem);
+      font-weight: 400;
+      line-height: 0.9;
+      letter-spacing: -0.02em;
+      margin-bottom: 2rem;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+      border-top: 0.5px solid var(--border-s);
+      margin-top: 3rem;
+    }
+    .hero-meta-item {
+      padding: 1.5rem 0;
+      border-right: 0.5px solid var(--border);
+    }
+    .hero-meta-item:first-child { padding-right: 2rem; }
+    .hero-meta-item:nth-child(2) { padding: 1.5rem 2rem; }
+    .hero-meta-item:last-child { border-right: none; padding-left: 2rem; }
+
+    .hero-meta-label {
+      font-family: var(--mono);
+      font-size: 0.5625rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 0.4rem;
+    }
+    .hero-meta-value {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--offwhite);
+    }
+
+    /* System Specs */
+    .sys-specs {
+      margin-top: 2rem;
+      border: 0.5px solid var(--border);
+      padding: 1.5rem 2rem;
+      font-family: var(--mono);
+      font-size: 0.6875rem;
+      line-height: 2;
+    }
+    .sys-specs-header {
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-size: 0.5625rem;
+      margin-bottom: 0.75rem;
+    }
+    .sys-line { color: var(--dim); }
+    .sys-line .key { color: var(--offwhite); }
+    .sys-line .val { color: var(--accent); }
+
+    /* ─── ABOUT ────────────────────────────────────────────────────── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: start;
+    }
+
+    .about-text {
+      font-family: var(--serif);
+      font-size: 1.375rem;
+      line-height: 1.65;
+      font-weight: 400;
+    }
+    .about-text em { color: var(--accent); font-style: italic; }
+
+    .about-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border: 0.5px solid var(--border);
+    }
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 1.25rem 1.75rem;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .stat-row:last-child { border-bottom: none; }
+    .stat-num {
+      font-family: var(--serif);
+      font-size: 2.5rem;
+      font-weight: 400;
+      color: var(--accent);
+    }
+    .stat-label {
+      font-family: var(--mono);
+      font-size: 0.625rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--dim);
+    }
+
+    /* ─── PROJECTS ─────────────────────────────────────────────────── */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 0.5px solid var(--border);
+    }
+
+    .project-card {
+      padding: 3rem;
+      border-right: 0.5px solid var(--border);
+      border-bottom: 0.5px solid var(--border);
+      cursor: none;
+      position: relative;
+      overflow: hidden;
+      transition: background 0.4s ease;
+    }
+    .project-card:nth-child(even) { border-right: none; }
+    .project-card:nth-last-child(-n+2) { border-bottom: none; }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 0% 100%, rgba(200,169,110,0.06) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .project-card:hover::before { opacity: 1; }
+
+    .project-num {
+      font-family: var(--mono);
+      font-size: 0.5625rem;
+      color: var(--dimmer);
+      letter-spacing: 0.2em;
+      margin-bottom: 1.5rem;
+    }
+    .project-title {
+      font-family: var(--serif);
+      font-size: 1.75rem;
+      font-weight: 400;
+      margin-bottom: 0.75rem;
+      line-height: 1.2;
+    }
+    .project-tagline {
+      font-size: 0.8125rem;
+      color: var(--dim);
+      margin-bottom: 2rem;
+      line-height: 1.5;
+    }
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .tag {
+      font-family: var(--mono);
+      font-size: 0.5625rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--dim);
+      border: 0.5px solid var(--dimmer);
+      padding: 0.3rem 0.75rem;
+    }
+
+    .project-expand {
+      margin-top: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--mono);
+      font-size: 0.5625rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: none;
+      border: none;
+      cursor: none;
+      padding: 0;
+    }
+    .project-expand::after {
+      content: '↗';
+      font-size: 0.875rem;
+      transition: transform 0.3s;
+    }
+    .project-card:hover .project-expand::after { transform: translate(3px, -3px); }
+
+    /* ─── EXPERIENCE ───────────────────────────────────────────────── */
+    .exp-item {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 4rem;
+      padding: 3.5rem 0;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .exp-item:first-child { padding-top: 0; }
+    .exp-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+    .exp-left {}
+    .exp-org {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      font-weight: 400;
+      margin-bottom: 0.3rem;
+    }
+    .exp-period {
+      font-family: var(--mono);
+      font-size: 0.5625rem;
+      color: var(--dim);
+      letter-spacing: 0.15em;
+    }
+
+    .exp-right {}
+    .exp-role {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .exp-points {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .exp-points li {
+      font-size: 0.8125rem;
+      color: var(--dim);
+      line-height: 1.6;
+      display: flex;
+      gap: 0.75rem;
+    }
+    .exp-points li::before {
+      content: '—';
+      color: var(--dimmer);
+      flex-shrink: 0;
+    }
+
+    /* ─── SKILLS ───────────────────────────────────────────────────── */
+    .skills-layout {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 0.5px solid var(--border);
+    }
+    .skill-group {
+      padding: 2.5rem;
+      border-right: 0.5px solid var(--border);
+    }
+    .skill-group:last-child { border-right: none; }
+
+    .skill-group-title {
+      font-family: var(--mono);
+      font-size: 0.5625rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .skill-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .skill-name {
+      font-family: var(--mono);
+      font-size: 0.6875rem;
+      color: var(--offwhite);
+      width: 90px;
+      flex-shrink: 0;
+    }
+    .skill-bar {
+      flex: 1;
+      height: 1px;
+      background: var(--dimmer);
+      position: relative;
+      overflow: hidden;
+    }
+    .skill-bar-fill {
+      position: absolute;
+      top: 0; left: 0;
+      height: 100%;
+      background: var(--accent);
+      width: 0%;
+      transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* ─── EDUCATION / CERTS ────────────────────────────────────────── */
+    .edu-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .edu-item {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 4rem;
+      padding: 2.5rem 0;
+      border-bottom: 0.5px solid var(--border);
+    }
+    .edu-item:last-child { border-bottom: none; }
+    .edu-year {
+      font-family: var(--mono);
+      font-size: 0.5625rem;
+      color: var(--dim);
+      letter-spacing: 0.15em;
+      padding-top: 0.2rem;
+    }
+    .edu-institution {
+      font-family: var(--serif);
+      font-size: 1.125rem;
+      margin-bottom: 0.3rem;
+    }
+    .edu-degree {
+      font-size: 0.8125rem;
+      color: var(--dim);
+    }
+    .edu-grade {
+      font-family: var(--mono);
+      font-size: 0.5625rem;
+      color: var(--accent);
+      margin-top: 0.5rem;
+      letter-spacing: 0.1em;
+    }
+
+    /* ─── FOOTER ───────────────────────────────────────────────────── */
+    footer {
+      padding: 4rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-name {
+      font-family: var(--serif);
+      font-size: 1rem;
+      letter-spacing: 0.05em;
+    }
+    .footer-copy {
+      font-family: var(--mono);
+      font-size: 0.5625rem;
+      color: var(--dimmer);
+      letter-spacing: 0.15em;
+    }
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+    }
+    .footer-links a {
+      font-family: var(--mono);
+      font-size: 0.5625rem;
+      color: var(--dim);
+      text-decoration: none;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--offwhite); }
+
+    /* ─── MODAL ────────────────────────────────────────────────────── */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.95);
+      z-index: 5000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+    .modal-backdrop.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .modal {
+      width: 100%;
+      max-width: 760px;
+      border: 0.5px solid var(--border-s);
+      background: #050505;
+      padding: 4rem;
+      transform: translateY(30px);
+      transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    .modal-backdrop.open .modal { transform: translateY(0); }
+
+    .modal-close {
+      position: absolute;
+      top: 2rem; right: 2rem;
+      background: none;
+      border: 0.5px solid var(--border-s);
+      color: var(--dim);
+      font-family: var(--mono);
+      font-size: 0.625rem;
+      letter-spacing: 0.2em;
+      padding: 0.6rem 1rem;
+      cursor: none;
+      transition: color 0.3s, border-color 0.3s;
+    }
+    .modal-close:hover { color: var(--offwhite); border-color: var(--offwhite); }
+
+    .modal-tag {
+      font-family: var(--mono);
+      font-size: 0.5625rem;
+      color: var(--accent);
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .modal-title {
+      font-family: var(--serif);
+      font-size: 2.5rem;
+      font-weight: 400;
+      line-height: 1.1;
+      margin-bottom: 2rem;
+    }
+    .modal-body {
+      font-size: 0.875rem;
+      color: var(--dim);
+      line-height: 1.8;
+    }
+    .modal-body p { margin-bottom: 1rem; }
+    .modal-body ul { list-style: none; }
+    .modal-body ul li {
+      padding: 0.5rem 0;
+      border-bottom: 0.5px solid var(--border);
+      display: flex;
+      gap: 0.75rem;
+    }
+    .modal-body ul li::before { content: '—'; color: var(--dimmer); }
+    .modal-section-title {
+      font-family: var(--mono);
+      font-size: 0.5625rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--offwhite);
+      margin: 2rem 0 1rem;
+    }
+
+    /* ─── REVEAL CLASSES ───────────────────────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(30px); }
+
+    /* ─── BLINKING CURSOR ─────────────────────────────────────────── */
+    .blink { animation: blink 1s step-end infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* ─── SCROLLBAR ────────────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 2px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--dimmer); }
+
+    /* ─── RESPONSIVE ───────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .container { padding: 0 2rem; }
+      nav { padding: 1.5rem 2rem; }
+      nav::after { left: 2rem; right: 2rem; }
+      .hero-meta { grid-template-columns: 1fr; }
+      .hero-meta-item { border-right: none; border-bottom: 0.5px solid var(--border); padding: 1rem 0 !important; }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-card { border-right: none; }
+      .skills-layout { grid-template-columns: 1fr; }
+      .skill-group { border-right: none; border-bottom: 0.5px solid var(--border); }
+      .exp-item, .edu-item { grid-template-columns: 1fr; gap: 1rem; }
+      footer { flex-direction: column; gap: 2rem; align-items: flex-start; }
+      .modal { padding: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursor-ring"></div>
+
+  <!-- Atmospheric overlays -->
+  <div class="grain"></div>
+  <div class="scanlines"></div>
+
+  <!-- ═══ NAV ══════════════════════════════════════════════════════════ -->
+  <nav id="nav">
+    <a href="#" class="nav-logo">M.K. — MMXXVI</a>
+    <ul class="nav-links">
+      <li><a href="#about">Profile</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#education">Education</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══ HERO ══════════════════════════════════════════════════════════ -->
+  <section id="hero">
+    <div class="hero-bg-text">ENGINEER</div>
+    <div class="container hero-content">
+      <div class="section-label" style="margin-bottom:2rem;">
+        <span>00 — IDENTIFICATION</span>
+      </div>
+
+      <h1 class="hero-title" id="hero-title">
+        Manas<br><em>Khanna</em>
+      </h1>
+
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <div class="hero-meta-label">Status</div>
+          <div class="hero-meta-value">B.Tech CSE · Year III<span class="blink">_</span></div>
+        </div>
+        <div class="hero-meta-item">
+          <div class="hero-meta-label">Institution</div>
+          <div class="hero-meta-value">Amity University Punjab</div>
+        </div>
+        <div class="hero-meta-item">
+          <div class="hero-meta-label">Specialisation</div>
+          <div class="hero-meta-value">Cybersecurity · Linux</div>
+        </div>
+      </div>
+
+      <div class="sys-specs reveal">
+        <div class="sys-specs-header">// SYSTEM SPECS — CURRENT MACHINE</div>
+        <div class="sys-line"><span class="key">HOST     </span> Lenovo Thinkbook</div>
+        <div class="sys-line"><span class="key">OS       </span> <span class="val">Arch Linux (Omarchy) </span> x86_64</div>
+        <div class="sys-line"><span class="key">WM       </span> <span class="val">Hyprland</span> Omarchy </div>
+        <div class="sys-line"><span class="key">EDITOR   </span> <span class="val">Neovim</span></div>
+        <div class="sys-line"><span class="key">SHELL    </span> Bash / Zsh</div>
+        <div class="sys-line"><span class="key">BROWSER  </span> Brave / Firefox</div>
+        <div class="sys-line"><span class="key">CONTACT  </span> manas15khanna@gmail.com</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ ABOUT ═════════════════════════════════════════════════════════ -->
+  <section id="about">
+    <div class="container">
+      <div class="section-label">01 — Profile Summary</div>
+      <div class="about-grid">
+        <div class="about-text reveal">
+          Computer Science undergraduate with a strong foundation in <em>cybersecurity</em> and <em>Linux environments</em>. Skilled in analysing requirements, collaborating within teams, and delivering precise, solution-oriented outcomes.<br><br>
+          Experienced in secure software development, <em>technical leadership</em>, and event management — with additional expertise in photography and media. Actively seeking opportunities in cybersecurity and software development roles.
+        </div>
+        <div class="about-stats reveal">
+          <div class="stat-row">
+            <div class="stat-label">Hackathon Placement</div>
+            <div class="stat-num">2nd</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-label">Events Directed</div>
+            <div class="stat-num">20+</div>
+          </div>
+          <div class="stat-row">
+            <div class="stat-label">Participants Handled</div>
+            <div class="stat-num">200+</div>
+          </div>
+          <!-- <div class="stat-row"> -->
+          <!--   <div class="stat-label">Cisco Certifications</div> -->
+          <!--   <div class="stat-num">03</div> -->
+          <!-- </div> -->
+          <div class="stat-row">
+            <div class="stat-label">Club Role</div>
+            <div class="stat-num" style="font-size:1.1rem;letter-spacing:-0.01em;">President</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PROJECTS ══════════════════════════════════════════════════════ -->
+  <section id="projects">
+    <div class="container">
+      <div class="section-label">02 — Selected Work</div>
+      <div class="projects-grid">
+
+        <!-- HexaWipe -->
+        <div class="project-card reveal" data-project="hexawipe">
+          <div class="project-num">Project 001</div>
+          <div class="project-title">HexaWipe</div>
+          <div class="project-tagline">Verifiable data-wiping software for secure IT asset recycling. Ranked 2nd at Smart India Hackathon internal selection.</div>
+          <div class="project-tags">
+            <span class="tag">Python</span>
+            <span class="tag">Linux</span>
+            <span class="tag">HTML/CSS</span>
+            <span class="tag">Cybersecurity</span>
+          </div>
+          <button class="project-expand" onclick="openModal('hexawipe')">View Details</button>
+        </div>
+
+        <!-- Technometer Web -->
+        <div class="project-card reveal" data-project="techclub">
+          <div class="project-num">Project 002</div>
+          <div class="project-title">Technometer<br>Club Infrastructure</div>
+          <div class="project-tagline">Web presence and digital content infrastructure for Amity University Punjab's premier technical club.</div>
+          <div class="project-tags">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">Photography</span>
+            <span class="tag">Media</span>
+          </div>
+          <button class="project-expand" onclick="openModal('techclub')">View Details</button>
+        </div>
+
+        <!-- Network Defense -->
+        <div class="project-card reveal" data-project="netdef">
+          <div class="project-num">Project 003</div>
+          <div class="project-title">Network Defense<br>Lab</div>
+          <div class="project-tagline">Cisco Packet Tracer simulations for threat mitigation and defensive network architecture design.</div>
+          <div class="project-tags">
+            <span class="tag">Cisco</span>
+            <span class="tag">Packet Tracer</span>
+            <span class="tag">Network Defense</span>
+          </div>
+          <button class="project-expand" onclick="openModal('netdef')">View Details</button>
+        </div>
+
+        <!-- DB Portfolio -->
+        <div class="project-card reveal" data-project="dbcat">
+          <div class="project-num">Project 004</div>
+          <div class="project-title">Digital Product<br>Catalogue</div>
+          <div class="project-tagline">Comprehensive pharmaceutical database and digital catalog engineered at Elina Lifesciences during internship.</div>
+          <div class="project-tags">
+            <span class="tag">Oracle SQL</span>
+            <span class="tag">MySQL</span>
+            <span class="tag">Google Workspace</span>
+          </div>
+          <button class="project-expand" onclick="openModal('dbcat')">View Details</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ EXPERIENCE ════════════════════════════════════════════════════ -->
+  <section id="experience">
+    <div class="container">
+      <div class="section-label">03 — Field Record</div>
+
+      <div class="exp-item reveal">
+        <div class="exp-left">
+          <div class="exp-org">Technometer Club</div>
+          <div class="exp-period">FEB 2024 — PRESENT</div>
+        </div>
+        <div class="exp-right">
+          <div class="exp-role">President (Mar 2026 – Present)</div>
+          <ul class="exp-points">
+            <li>Orchestrating club strategy and cross-functional operations for technical, media, and management teams to drive member engagement and technical excellence.</li>
+            <li>Spearheading high-level coordination with university faculty and external stakeholders to scale club initiatives and official representation.</li>
+          </ul>
+          <div class="exp-role" style="margin-top:1.5rem;">Technical Co-Head & Media Specialist (Feb 2024 – Mar 2026)</div>
+          <ul class="exp-points">
+            <li>Directed technical execution for 20+ large-scale events; designed problem statements and debugged challenges for 100+ participants.</li>
+            <li>Optimised event workflows by integrating technical logistics with digital content creation, professional photography, and web support.</li>
+            <li>Produced high-quality visual assets and initial web infrastructure that strengthened the club's digital presence.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="exp-item reveal">
+        <div class="exp-left">
+          <div class="exp-org">Elina Lifesciences</div>
+          <div class="exp-period">JUN 2025 — AUG 2025</div>
+        </div>
+        <div class="exp-right">
+          <div class="exp-role">Summer Intern</div>
+          <ul class="exp-points">
+            <li>Architected and maintained a comprehensive product database tracking the company's medicine portfolio — dosages, pricing models, and clinical descriptions.</li>
+            <li>Engineered a professional digital catalog using Microsoft Office and Google Workspace suites, streamlining marketing team access to real-time product data.</li>
+            <li>Provided technical assistance for the maintenance of corporate network infrastructure.</li>
+            <li>Applied advanced technical concepts to build a synchronised digital asset management system, improving data retrieval efficiency across IT and Operations.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ SKILLS ════════════════════════════════════════════════════════ -->
+  <section id="skills">
+    <div class="container">
+      <div class="section-label">04 — Technical Arsenal</div>
+      <div class="skills-layout">
+
+        <div class="skill-group reveal">
+          <div class="skill-group-title">// Languages</div>
+          <div class="skill-item">
+            <span class="skill-name">C / C++</span>
+            <div class="skill-bar"><div class="skill-bar-fill" data-width="80"></div></div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Python</span>
+            <div class="skill-bar"><div class="skill-bar-fill" data-width="78"></div></div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Java</span>
+            <div class="skill-bar"><div class="skill-bar-fill" data-width="60"></div></div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">HTML / CSS</span>
+            <div class="skill-bar"><div class="skill-bar-fill" data-width="70"></div></div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">LaTeX</span>
+            <div class="skill-bar"><div class="skill-bar-fill" data-width="95"></div></div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Shell / Bash</span>
+            <div class="skill-bar"><div class="skill-bar-fill" data-width="60"></div></div>
+          </div>
+        </div>
+
+        <div class="skill-group reveal">
+          <div class="skill-group-title">// Cybersecurity & Networking</div>
+          <div class="skill-item">
+            <span class="skill-name">Net Defense</span>
+            <div class="skill-bar"><div class="skill-bar-fill" data-width="75"></div></div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Threat Mitig.</span>
+            <div class="skill-bar"><div class="skill-bar-fill" data-width="70"></div></div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Cisco PKT</span>
+            <div class="skill-bar"><div class="skill-bar-fill" data-width="75"></div></div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">AWS (S3)</span>
+            <div class="skill-bar"><div class="skill-bar-fill" data-width="50"></div></div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Oracle SQL</span>
+            <div class="skill-bar"><div class="skill-bar-fill" data-width="60"></div></div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">MySQL</span>
+            <div class="skill-bar"><div class="skill-bar-fill" data-width="65"></div></div>
+          </div>
+        </div>
+
+        <div class="skill-group reveal">
+          <div class="skill-group-title">// OS & Tools</div>
+          <div class="skill-item">
+            <span class="skill-name">Arch Linux</span>
+            <div class="skill-bar"><div class="skill-bar-fill" data-width="90"></div></div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Kali Linux</span>
+            <div class="skill-bar"><div class="skill-bar-fill" data-width="75"></div></div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Neovim</span>
+            <div class="skill-bar"><div class="skill-bar-fill" data-width="95"></div></div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Git</span>
+            <div class="skill-bar"><div class="skill-bar-fill" data-width="75"></div></div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">LibreOffice</span>
+            <div class="skill-bar"><div class="skill-bar-fill" data-width="85"></div></div>
+          </div>
+          <div class="skill-item">
+            <span class="skill-name">Photography</span>
+            <div class="skill-bar"><div class="skill-bar-fill" data-width="95"></div></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ EDUCATION ═════════════════════════════════════════════════════ -->
+  <section id="education">
+    <div class="container">
+      <div class="section-label">05 — Academic Record</div>
+      <div class="edu-list">
+
+        <div class="edu-item reveal">
+          <div class="edu-year">AUG 2023 — PRESENT</div>
+          <div>
+            <div class="edu-institution">Amity University, Punjab</div>
+            <div class="edu-degree">Bachelor of Technology — Computer Science</div>
+            <div class="edu-grade">COURSEWORK: C, C++, Python, Cloud Computing, Cybersecurity, Cisco Packet Tracer</div>
+          </div>
+        </div>
+
+        <div class="edu-item reveal">
+          <div class="edu-year">MAY 2021 — MAY 2023</div>
+          <div>
+            <div class="edu-institution">Sri Guru Gobind Singh Sr. Sec. School</div>
+            <div class="edu-degree">Senior Secondary — Science Stream (12th)</div>
+            <div class="edu-grade">GRADE: 72.3% · COURSEWORK: Python, MySQL</div>
+          </div>
+        </div>
+
+        <div class="edu-item reveal">
+          <div class="edu-year">2011 — 2021</div>
+          <div>
+            <div class="edu-institution">Manav Mangal Smart School</div>
+            <div class="edu-degree">High School (10th)</div>
+            <div class="edu-grade">GRADE: 83.4% · COURSEWORK: Microsoft Office, CSS, HTML, Scratch</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Certifications -->
+      <div class="section-label" style="margin-top:5rem;">05b — Certifications</div>
+      <div class="edu-list">
+        <div class="edu-item reveal">
+          <div class="edu-year">JAN 2025 — JUN 2025</div>
+          <div>
+            <div class="edu-institution">Cisco Networking Academy</div>
+            <div class="edu-degree" style="margin-top:0.5rem;">Network Defense — threat mitigation, defensive strategies, securing network infrastructure</div>
+            <div class="edu-degree" style="margin-top:0.5rem;">Introduction to Cybersecurity — risk management, cyber threats, security best practices</div>
+            <div class="edu-degree" style="margin-top:0.5rem;">IoT & Digital Transformation — digital systems, emerging technologies, IoT connectivity</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIH Achievement -->
+      <div class="section-label" style="margin-top:5rem;">05c — Achievement</div>
+      <div class="edu-list">
+        <div class="edu-item reveal">
+          <div class="edu-year">SEP 24, 2025</div>
+          <div>
+            <div class="edu-institution">Smart India Hackathon — Internal Selection</div>
+            <div class="edu-degree">Team Leader & Developer · Secured 2nd Place</div>
+            <div class="edu-grade">ORGANISED BY: Ministry of Education, GoI · IEEE AUP Student Branch</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="edu-list">
+        <div class="edu-item reveal">
+            <div class="edu-year">FEB 24, 2026</div>
+              <div>
+              <div class="edu-institution">HR Conclave 2026 — Amity University Punjab</div>
+              <div class="edu-degree">Organizing Committee Member & Photographer</div>
+              <div class="edu-grade">ORGANISED BY: Amity Center for Placement and Industry Relations (ACPIR)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="edu-list">
+        <div class="edu-item reveal">
+          <div class="edu-year">OCT 18, 2025</div>
+          <div>
+            <div class="edu-institution">CSAI Expo Hacker Meetup — Chandigarh</div>
+            <div class="edu-degree">Participant · Cybersecurity & Bug Hunting</div>
+            <div class="edu-grade">ORGANISED BY: CSAI EXPO · Harinder Singh (HackwithSingh) · AWASAF</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ════════════════════════════════════════════════════════ -->
+  <footer>
+    <div class="container" style="display:flex;justify-content:space-between;align-items:center;width:100%;">
+      <div class="footer-name">Manas Khanna</div>
+      <div class="footer-links">
+        <a href="https://github.com/manas15khanna" target="_blank">GitHub</a>
+        <a href="mailto:manas15khanna@gmail.com">Email</a>
+        <a href="tel:+918580471094">+91 8580 471094</a>
+      </div>
+      <div class="footer-copy">© MMXXVI — ALL FRAMES RECORDED</div>
+    </div>
+  </footer>
+
+  <!-- ═══ MODAL ═════════════════════════════════════════════════════════ -->
+  <div class="modal-backdrop" id="modal-backdrop" onclick="closeModalOutside(event)">
+    <div class="modal" id="modal-inner">
+      <button class="modal-close" onclick="closeModal()">[ CLOSE ]</button>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
+  <!-- ═══ SCRIPTS ══════════════════════════════════════════════════════ -->
+  <script>
+    /* ── CURSOR ─────────────────────────────────────────────────────── */
+    const cursor = document.getElementById('cursor');
+    const cursorRing = document.getElementById('cursor-ring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx + 'px';
+      cursor.style.top  = my + 'px';
+    });
+
+    function animateCursor() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      cursorRing.style.left = rx + 'px';
+      cursorRing.style.top  = ry + 'px';
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    /* ── LENIS ──────────────────────────────────────────────────────── */
+    const lenis = new Lenis({
+      duration: 1.4,
+      easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smooth: true,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    /* ── GSAP ───────────────────────────────────────────────────────── */
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Nav fade in
+    gsap.from('#nav', {
+      opacity: 0, y: -20, duration: 1, delay: 0.2, ease: 'power3.out'
+    });
+
+    // Hero title cinematic reveal
+    gsap.from('#hero-title', {
+      opacity: 0, y: 60, duration: 1.4, delay: 0.5, ease: 'power4.out'
+    });
+
+    gsap.from('.hero-bg-text', {
+      opacity: 0, scale: 1.05, duration: 2, delay: 0.3, ease: 'power3.out'
+    });
+
+    // Scroll reveals
+    gsap.utils.toArray('.reveal').forEach((el, i) => {
+      gsap.to(el, {
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 85%',
+          toggleActions: 'play none none none',
+        },
+        opacity: 1,
+        y: 0,
+        duration: 0.9,
+        delay: i % 3 * 0.08,
+        ease: 'power3.out',
+      });
+    });
+
+    // Skill bars on scroll
+    gsap.utils.toArray('.skill-bar-fill').forEach(bar => {
+      const target = bar.dataset.width;
+      ScrollTrigger.create({
+        trigger: bar,
+        start: 'top 88%',
+        onEnter: () => {
+          bar.style.width = target + '%';
+        }
+      });
+    });
+
+    /* ── MODAL DATA ─────────────────────────────────────────────────── */
+    const projects = {
+      hexawipe: {
+        tag: 'FLAGSHIP PROJECT · SIH 2025',
+        title: 'HexaWipe',
+        body: `
+          <p>HexaWipe is a verifiable data-wiping software designed to mitigate data breach risks during IT asset recycling. Developed for the Smart India Hackathon challenge: <em>Secure Data Wiping for Trustworthy IT Asset Recycling</em>, organised by the Ministry of Education, GoI.</p>
+          <p>The team secured <strong>2nd Place</strong> in the highly competitive internal selection round at Amity University Punjab, organised in collaboration with the IEEE AUP Student Branch.</p>
+          <div class="modal-section-title">// KEY CONTRIBUTIONS</div>
+          <ul>
+            <li>Developed secure data sanitisation logic aligned with industry-standard cybersecurity practices</li>
+            <li>Guided a 6-member cross-functional team — handled full-stack design and development</li>
+            <li>Implemented verifiable wipe reports to provide auditability for recycled IT devices</li>
+            <li>Built a clean HTML/CSS frontend interface for tool interaction and report generation</li>
+          </ul>
+          <div class="modal-section-title">// TECH STACK</div>
+          <ul>
+            <li>Python — Core data wiping and sanitisation engine</li>
+            <li>Linux — OS-level disk access and validation</li>
+            <li>HTML / CSS — Frontend interface and report viewer</li>
+            <li>Cybersecurity Principles — DoD / NIST data sanitisation standards</li>
+          </ul>
+        `
+      },
+      techclub: {
+        tag: 'LEADERSHIP PROJECT · ONGOING',
+        title: 'Technometer Club Infrastructure',
+        body: `
+          <p>As Technical Co-Head and later President of the Technometer Club at Amity University Punjab, Manas led the design and deployment of the club's digital presence — from web infrastructure to visual identity.</p>
+          <div class="modal-section-title">// SCOPE OF WORK</div>
+          <ul>
+            <li>Produced high-quality visual assets for 20+ large-scale events</li>
+            <li>Built and maintained initial web infrastructure and promotional channels</li>
+            <li>Integrated technical logistics with digital content creation including professional photography</li>
+            <li>Designed and debugged problem statements for competitive events with 100+ participants</li>
+          </ul>
+          <div class="modal-section-title">// IMPACT</div>
+          <ul>
+            <li>Strengthened club digital presence and outreach significantly</li>
+            <li>Reduced event operational friction through streamlined workflows</li>
+            <li>Currently directing strategy as President for all technical, media, and management teams</li>
+          </ul>
+        `
+      },
+      netdef: {
+        tag: 'CISCO CERTIFICATION PROJECT',
+        title: 'Network Defense Lab',
+        body: `
+          <p>A series of network simulation and defensive architecture projects completed as part of the Cisco Networking Academy certification track, focusing on real-world threat scenarios.</p>
+          <div class="modal-section-title">// AREAS COVERED</div>
+          <ul>
+            <li>Threat mitigation and defensive strategy design using Cisco Packet Tracer</li>
+            <li>Securing network infrastructure against common attack vectors</li>
+            <li>Risk management frameworks and cyber threat analysis</li>
+            <li>IoT connectivity security and digital transformation concepts</li>
+          </ul>
+          <div class="modal-section-title">// CERTIFICATIONS EARNED</div>
+          <ul>
+            <li>Network Defense — Cisco Networking Academy (Jan–Jun 2025)</li>
+            <li>Introduction to Cybersecurity — Cisco Networking Academy (Jan–Jun 2025)</li>
+            <li>IoT & Digital Transformation — Cisco Networking Academy (Jan–Jun 2025)</li>
+          </ul>
+        `
+      },
+      dbcat: {
+        tag: 'INTERNSHIP PROJECT · ELINA LIFESCIENCES',
+        title: 'Digital Product Catalogue',
+        body: `
+          <p>During a summer internship at Elina Lifesciences Pvt. Ltd. (Jun–Aug 2025), Manas architected and maintained a comprehensive pharmaceutical product database and digital catalog system.</p>
+          <div class="modal-section-title">// DELIVERABLES</div>
+          <ul>
+            <li>Architected product database tracking medicine portfolio — dosages, pricing models, clinical descriptions</li>
+            <li>Engineered a professional digital catalog using Microsoft Office and Google Workspace suites</li>
+            <li>Created a synchronised digital portfolio of orders for IT and Operations departments</li>
+            <li>Provided technical assistance for corporate network infrastructure maintenance</li>
+          </ul>
+          <div class="modal-section-title">// TOOLS USED</div>
+          <ul>
+            <li>Oracle SQL / MySQL — Database architecture and queries</li>
+            <li>Google Workspace — Collaborative digital catalog</li>
+            <li>Microsoft Office Suite — Professional documentation and reporting</li>
+          </ul>
+        `
+      }
+    };
+
+    /* ── MODAL FUNCTIONS ────────────────────────────────────────────── */
+    function openModal(id) {
+      const p = projects[id];
+      if (!p) return;
+      document.getElementById('modal-content').innerHTML = `
+        <div class="modal-tag">${p.tag}</div>
+        <div class="modal-title">${p.title}</div>
+        <div class="modal-body">${p.body}</div>
+      `;
+      document.getElementById('modal-backdrop').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      document.getElementById('modal-backdrop').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function closeModalOutside(e) {
+      if (e.target === document.getElementById('modal-backdrop')) closeModal();
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    /* ── SMOOTH NAV SCROLL ──────────────────────────────────────────── */
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) lenis.scrollTo(target, { offset: -80, duration: 1.6 });
+      });
+    });
+  </script>
+</body>
+</html>
