@@ -26,7 +26,6 @@ Here are some ideas to get you started:
 
 ![General stats](http://github-profile-summary-cards.vercel.app/api/cards/stats?username=manas15khanna&theme=github_dark)
 ![Top languages by commit](http://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=manas15khanna&theme=github_dark)
-![Top languages by repo](http://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=manas15khanna&theme=github_dark)
 
 ## Github Commits
 
