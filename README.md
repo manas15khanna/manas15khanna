@@ -24,8 +24,9 @@ Here are some ideas to get you started:
 
 ## Github Stats
 
-[![GitHub Stats](https://github-stats-extended.vercel.app/api?username=manas15khanna&rank_icon=default&hide_rank=true&show_icons=true&include_all_commits=true&disable_animations=true&theme=onedark)](https://github-stats-extended.vercel.app/api?username=manas15khanna&rank_icon=default&hide_rank=true&show_icons=true&include_all_commits=true&disable_animations=true&theme=github_dark)
-[![GitHub Stats](https://github-stats-extended.vercel.app/api/top-langs?username=manas15khanna&layout=donut&langs_count=5&disable_animations=true&theme=onedark)](https://github-stats-extended.vercel.app/api/top-langs?username=manas15khanna&layout=donut&langs_count=5&disable_animations=true&theme=github_dark)
+![General stats](http://github-profile-summary-cards.vercel.app/api/cards/stats?username=manas15khanna&theme=github_dark)
+![Top languages by commit](http://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=manas15khanna&theme=github_dark)
+![Top languages by repo](http://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username=manas15khanna&theme=github_dark)
 
 ## Github Commits
 
