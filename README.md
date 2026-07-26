@@ -24,8 +24,8 @@ Here are some ideas to get you started:
 
 ## Github Stats
 
-<img align="left" width="49%" height="40%" src="https://github-readme-stats.vercel.app/api?username=manas15khanna&show_icons=true&theme=tokyonight&hide_border=true"/>
-<img align="left" width="46%" height="40%" src="https://github-readme-stats.vercel.app/api/top-langs/?username=manas15khanna&theme=tokyonight&hide_border=true&include_all_commits=true&count_private=false&layout=compact&hide_border=true"/>
+[![GitHub Stats](https://github-stats-extended.vercel.app/api?username=manas15khanna&rank_icon=default&hide_rank=true&show_icons=true&include_all_commits=true&disable_animations=true&theme=onedark)](https://github-stats-extended.vercel.app/api?username=manas15khanna&rank_icon=default&hide_rank=true&show_icons=true&include_all_commits=true&disable_animations=true&theme=onedark)
+[![GitHub Stats](https://github-stats-extended.vercel.app/api/top-langs?username=manas15khanna&layout=pie&langs_count=6&disable_animations=true&theme=onedark)](https://github-stats-extended.vercel.app/api/top-langs?username=manas15khanna&layout=pie&langs_count=6&disable_animations=true&theme=onedark)
 
 ## Github Commits
 
@@ -33,7 +33,7 @@ Here are some ideas to get you started:
 
 _generated with [Platane/snk](https://github.com/Platane/snk)_
 
-[![trophy](https://github-profile-trophy.vercel.app/?username=manas15khanna&theme=tokyonight)](https://github.com/ryo-ma/github-profile-trophy)
+[![trophy](https://github-profile-trophy.vercel.app/?username=manas15khanna&theme=onedark)](https://github.com/ryo-ma/github-profile-trophy)
 
 ## Tools I use
 ![Brave](https://img.shields.io/badge/Brave-FB542B?style=for-the-badge&logo=Brave&logoColor=white)
