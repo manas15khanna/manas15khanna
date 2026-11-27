@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-void: #050608;
+  --bg-surface: #0c0e13;
+  --bg-aluminum: #161922;
+  --border-hairline: rgba(255, 255, 255, 0.08);
+  --border-titanium: rgba(255, 255, 255, 0.16);
+  --text-primary: #f4f5f7;
+  --text-secondary: #949ba8;
+  --text-muted: #525866;
+  --accent-active: #ff8000;
+  --accent-rgb: 255, 128, 0;
+}
+
+html {
+  background-color: var(--bg-void);
+  color: var(--text-primary);
+  scroll-behavior: smooth;
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+  overflow-x: hidden;
+  background-color: var(--bg-void);
+}
+
+/* Custom subtle scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050608;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-active);
+}
+
+/* Brushed Anodized Titanium Surface */
+.brushed-titanium {
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.015) 0px,
+      rgba(255, 255, 255, 0.015) 1px,
+      transparent 1px,
+      transparent 3px
+    ),
+    linear-gradient(180deg, #1d212d 0%, #13161f 48%, #0e1017 100%);
+}
+
+/* Subtle architectural grid */
+.cyber-grid {
+  background-size: 40px 40px;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+/* Liquid hover filter utility */
+.liquid-distort {
+  filter: url(#liquid-goo);
+}
+
+/* Kinetic rolling text */
+.kinetic-wrap {
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  line-height: 1.15;
+}
+
+.kinetic-wrap > span {
+  display: block;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.kinetic-wrap > span:last-child {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+}
+
+.group:hover .kinetic-wrap > span:first-child,
+.kinetic-trigger:hover .kinetic-wrap > span:first-child {
+  transform: translateY(-105%) skewY(-3deg);
+}
+
+.group:hover .kinetic-wrap > span:last-child,
+.kinetic-trigger:hover .kinetic-wrap > span:last-child {
+  transform: translateY(-100%);
+}
+
+/* Custom cursor hiding on fine pointers */
+@media (pointer: fine) {
+  .has-liquid-cursor,
+  .has-liquid-cursor a,
+  .has-liquid-cursor button {
+    cursor: none !important;
+  }
+}
